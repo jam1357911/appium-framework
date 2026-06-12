@@ -1,0 +1,75 @@
+name: Android Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      device_key:
+        description: "Device key from devices.yaml"
+        required: false
+        default: "emulator"
+
+env:
+  PLATFORM: android
+  DEVICE_KEY: ${{ github.event.inputs.device_key || 'emulator' }}
+
+jobs:
+  android-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK (required by Android emulator)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Install Python dependencies
+        run: uv sync
+
+      - name: Start Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          profile: pixel_5
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+          disable-animations: true
+          script: echo "Emulator started"
+
+      - name: Start Appium server
+        run: |
+          npm install -g appium
+          appium driver install uiautomator2
+          appium &
+          sleep 5
+
+      - name: Run tests
+        run: |
+          uv run pytest step_defs/ \
+            --platform android \
+            --device-key ${{ env.DEVICE_KEY }} \
+            --html=reports/report.html \
+            --self-contained-html \
+            -v
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-test-report
+          path: reports/
+          retention-days: 14

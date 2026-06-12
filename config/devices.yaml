@@ -1,0 +1,21 @@
+# Device configuration.
+# Replace udid values with real device/emulator UDIDs.
+android:
+  emulator:
+    udid: "emulator-5554"
+    platform_version: "13"
+    device_name: "Android Emulator"
+  real_device:
+    udid: "REPLACE_WITH_REAL_ANDROID_UDID"
+    platform_version: "13"
+    device_name: "Samsung Galaxy S23"
+
+ios:
+  simulator:
+    udid: "REPLACE_WITH_SIMULATOR_UDID"
+    platform_version: "17.0"
+    device_name: "iPhone 15 Pro"
+  real_device:
+    udid: "REPLACE_WITH_REAL_IOS_UDID"
+    platform_version: "17.0"
+    device_name: "iPhone 15 Pro"

@@ -1,0 +1,33 @@
+[project]
+name = "appium-framework"
+version = "0.1.0"
+description = "Appium + Python + pytest + pytest-bdd mobile automation framework"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "Appium-Python-Client>=3.1.0",
+    "pytest>=8.0.0",
+    "pytest-bdd>=7.0.0",
+    "PyYAML>=6.0.0",
+    "allure-pytest>=2.13.5",
+    "pytest-html>=4.1.1",
+    "selenium>=4.18.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest-mock>=3.12.0",
+    "ruff>=0.4.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["step_defs"]
+bdd_features_base_dir = "features"
+addopts = "--tb=short -v"
+
+[tool.ruff]
+line-length = 120

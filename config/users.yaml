@@ -1,0 +1,12 @@
+# User credentials used in tests.
+# Add more users as needed.
+users:
+  default:
+    username: "test_user@example.com"
+    password: "Test@1234"
+  admin:
+    username: "admin@example.com"
+    password: "Admin@1234"
+  guest:
+    username: "guest@example.com"
+    password: "Guest@1234"

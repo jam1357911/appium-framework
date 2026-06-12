@@ -1,0 +1,31 @@
+# Appium capabilities per platform.
+# Replace placeholder values with your real app details.
+appium_server:
+  url: "http://localhost:4723"
+
+android:
+  # App identifiers
+  app_package: "com.example.fakeapp"
+  app_activity: "com.example.fakeapp.MainActivity"
+  # Path to the .apk file relative to the project root (used when installing the app)
+  app_path: "./apps/fake_app.apk"
+  # Appium settings
+  automation_name: "UiAutomator2"
+  no_reset: true
+  full_reset: false
+  new_command_timeout: 300
+  auto_grant_permissions: true
+
+ios:
+  # App identifiers
+  bundle_id: "com.example.FakeApp"
+  # Path to the .ipa / .app file relative to the project root
+  app_path: "./apps/FakeApp.app"
+  # Appium settings
+  automation_name: "XCUITest"
+  no_reset: true
+  full_reset: false
+  new_command_timeout: 300
+  # Required for real devices
+  xcode_org_id: "REPLACE_WITH_TEAM_ID"
+  xcode_signing_id: "iPhone Developer"
