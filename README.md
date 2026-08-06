@@ -22,7 +22,9 @@ appium-framework/
 ├── step_defs/               # pytest-bdd step definitions & test entry points
 ├── utils/
 │   ├── config_loader.py     # YAML loaders
-│   └── driver_factory.py    # Appium driver builder
+│   ├── driver_factory.py    # Appium driver builder
+│   ├── reporting.py         # Session report + per-case log files
+│   └── screenshot.py        # Per-step screenshot capture
 └── conftest.py              # Session-level fixtures (driver)
 ```
 
@@ -98,6 +100,19 @@ A screenshot is taken automatically after **every step** in each scenario (and w
 
 - Files are saved to `screenshots/` as `<scenario>_L<line>_<given|when|then>_<step text>_<timestamp>.png`.
 - Manual captures are still available via `BasePage.take_screenshot(name)`.
+
+---
+
+## Reporting & logs
+
+Every session writes its artefacts to a timestamped folder `reports/run_<timestamp>/`:
+
+| File | Content |
+|------|---------|
+| `session_report.json` | Pass/fail record of every case — name, feature/scenario, outcome, duration, error text |
+| `logs/<case>.log` | One log file per case — step-by-step flow, driver lifecycle, full traceback on failure |
+
+A short summary (counts + file locations) is also printed at the end of every run.
 
 ---
 
