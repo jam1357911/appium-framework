@@ -1,6 +1,6 @@
 import os
 from appium import webdriver
-from appium.options import AppiumOptions
+from appium.options.common.base import AppiumOptions
 from utils.config_loader import get_capabilities, get_device
 
 

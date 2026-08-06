@@ -92,6 +92,15 @@ uv run pytest step_defs/ --html=reports/report.html --self-contained-html
 
 ---
 
+## Screenshots
+
+A screenshot is taken automatically after **every step** in each scenario (and when a step fails), so you get one image per Gherkin step without touching any step definition.
+
+- Files are saved to `screenshots/` as `<scenario>_L<line>_<given|when|then>_<step text>_<timestamp>.png`.
+- Manual captures are still available via `BasePage.take_screenshot(name)`.
+
+---
+
 ## `BasePage` reference
 
 | Method | Description |
